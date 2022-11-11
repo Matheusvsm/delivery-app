@@ -14,6 +14,11 @@ import { RootStackParamList } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import LoginInput from '../LoginInput';
 import { useState } from 'react';
+import {
+  emailValidator,
+  phoneMask,
+  phoneValidator,
+} from '../../utils/Validators';
 
 type SignUpScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
@@ -33,9 +38,13 @@ function SignUpFormContainer() {
 
   const handleFormChange = (
     newValue: string,
-    form: keyof typeof formValues
+    form: keyof typeof formValues,
+    mask?: (value: string) => string
   ) => {
-    setFormValues({ ...formValues, [form]: newValue });
+    setFormValues({
+      ...formValues,
+      [form]: mask ? mask(newValue) : newValue,
+    });
   };
 
   return (
@@ -50,14 +59,17 @@ function SignUpFormContainer() {
             style={styles.inputStartIcon}
           />
         }
+        value={formValues.name}
         inputOptions={{
           placeholder: 'Digite seu nome completo',
           onChangeText: (newValue: string) =>
             handleFormChange(newValue, 'name'),
+          maxLength: 150,
         }}
       />
       <LoginInput
         cabecario="E-mail"
+        value={formValues.email}
         icon={
           <MaterialCommunityIcons
             name="email-newsletter"
@@ -67,11 +79,12 @@ function SignUpFormContainer() {
           />
         }
         inputOptions={{
-          placeholder: 'Ex: Fulano Silva Torres',
+          placeholder: 'Ex: fulano@empresa.com',
           keyboardType: 'email-address',
           onChangeText: (newValue: string) =>
             handleFormChange(newValue, 'email'),
         }}
+        validator={emailValidator}
       />
       <LoginInput
         cabecario="Endereço"
@@ -83,6 +96,7 @@ function SignUpFormContainer() {
             style={{ ...styles.inputStartIcon, paddingRight: 10 }}
           />
         }
+        value={formValues.address}
         inputOptions={{
           placeholder: 'Ex: Rua Costa Barros, 302',
           onChangeText: (newValue: string) =>
@@ -99,12 +113,14 @@ function SignUpFormContainer() {
             style={styles.inputStartIcon}
           />
         }
+        value={formValues.phone}
         inputOptions={{
           placeholder: 'Ex: (85) 91234-1234',
           keyboardType: 'phone-pad',
           onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'phone'),
+            handleFormChange(newValue, 'phone', phoneMask),
         }}
+        validator={phoneValidator}
       />
       <LoginInput
         cabecario="Senha"
@@ -116,6 +132,7 @@ function SignUpFormContainer() {
             style={styles.inputStartIcon}
           />
         }
+        value={formValues.password}
         inputOptions={{
           placeholder: 'Digite sua senha',
           onChangeText: (newValue: string) =>
@@ -133,12 +150,14 @@ function SignUpFormContainer() {
             style={styles.inputStartIcon}
           />
         }
+        value={formValues.password2}
         inputOptions={{
           placeholder: 'Confirme sua senha',
           onChangeText: (newValue: string) =>
             handleFormChange(newValue, 'password2'),
           secureTextEntry: true,
         }}
+        validator={(text: string) => text === formValues.password}
       />
       <TouchableOpacity
         onPress={() => {

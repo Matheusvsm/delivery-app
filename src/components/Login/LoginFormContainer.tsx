@@ -30,25 +30,33 @@ function LoginFormContainer() {
     setPassword(value);
   };
 
+  const handleSubmit = () => {
+    navigation.navigate('Main');
+  };
+
   return (
     <View style={styles.container}>
       <LoginInput
         cabecario="Usuário ou e-mail"
         icon={<AntDesign name="user" size={20} color={COLORS.gray_300} />}
+        value={login}
         inputOptions={{
           placeholder: 'Usuário ou e-mail',
           keyboardType: 'email-address',
+          onChangeText: handleLoginChange,
         }}
       />
       <LoginInput
         cabecario="Senha"
         icon={<AntDesign name="lock" size={20} color={COLORS.gray_300} />}
+        value={password}
         inputOptions={{
           placeholder: 'Insira sua senha',
           secureTextEntry: true,
+          onChangeText: handlePasswordChange,
         }}
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
       <Text>
