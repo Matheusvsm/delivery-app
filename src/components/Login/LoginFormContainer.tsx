@@ -34,28 +34,19 @@ function LoginFormContainer() {
     <View style={styles.container}>
       <LoginInput
         cabecario="Usuário ou e-mail"
-        icon={
-          <AntDesign
-            name="user"
-            size={27}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
-          />
-        }
-        placeholder="Usuário ou e-mail"
-        keyboardType="email-address"
+        icon={<AntDesign name="user" size={20} color={COLORS.gray_300} />}
+        inputOptions={{
+          placeholder: 'Usuário ou e-mail',
+          keyboardType: 'email-address',
+        }}
       />
       <LoginInput
         cabecario="Senha"
-        icon={
-          <AntDesign
-            name="lock"
-            size={27}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
-          />
-        }
-        placeholder="Insira sua senha"
+        icon={<AntDesign name="lock" size={20} color={COLORS.gray_300} />}
+        inputOptions={{
+          placeholder: 'Insira sua senha',
+          secureTextEntry: true,
+        }}
       />
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Entrar</Text>
@@ -82,12 +73,6 @@ const styles = StyleSheet.create({
     width: '80%',
     marginVertical: 50,
     padding: 20,
-  },
-  inputStartIcon: {
-    borderColor: 'black',
-    borderBottomWidth: 1,
-    paddingVertical: 5,
-    paddingRight: 3,
   },
   button: {
     backgroundColor: COLORS.orange,

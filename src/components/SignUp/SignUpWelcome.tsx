@@ -26,6 +26,7 @@ function SignUpWelcome() {
 const styles = StyleSheet.create({
   welcomeMessage: {
     alignItems: 'center',
+    marginTop: 30,
   },
   text: {
     color: 'white',

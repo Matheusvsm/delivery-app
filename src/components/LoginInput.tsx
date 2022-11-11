@@ -1,5 +1,12 @@
 import { Icon } from '@expo/vector-icons/build/createIconSet';
-import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardTypeOptions,
+  TextInputProps,
+} from 'react-native';
 import { COLORS } from '../constants/Colors';
 
 type IconsLibs =
@@ -21,8 +28,7 @@ type IconsLibs =
 interface InputProps {
   cabecario: string;
   icon?: React.ReactNode;
-  placeholder?: string;
-  keyboardType?: KeyboardTypeOptions;
+  inputOptions: TextInputProps;
 }
 
 function LoginInput(props: InputProps) {
@@ -30,13 +36,11 @@ function LoginInput(props: InputProps) {
     <>
       <Text style={styles.cabecario}>{props.cabecario}</Text>
       <View style={styles.inputForm}>
-        {props.icon}
+        <View style={styles.icon}>{props.icon}</View>
         <TextInput
           style={styles.input}
-          placeholder={props.placeholder}
           placeholderTextColor={COLORS.gray_300}
-          onChangeText={() => {}}
-          keyboardType={props.keyboardType}
+          {...props.inputOptions}
         />
       </View>
     </>
@@ -44,24 +48,24 @@ function LoginInput(props: InputProps) {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 3,
+  },
   inputForm: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  inputStartIcon: {
-    borderColor: 'black',
     borderBottomWidth: 1,
-    paddingVertical: 5,
-    paddingRight: 3,
+    borderColor: 'black',
   },
   input: {
     flex: 1,
     paddingVertical: 5,
-    color: '#424242',
-    borderColor: 'black',
-    borderBottomWidth: 1,
+    height: 30,
+    color: COLORS.gray_200,
   },
   cabecario: {
     color: COLORS.gray_300,
