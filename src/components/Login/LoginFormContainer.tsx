@@ -1,13 +1,6 @@
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { COLORS } from '../../constants/Colors';
-import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -19,16 +12,7 @@ type LoginScreenNavigationType = NativeStackNavigationProp<
 >;
 
 function LoginFormContainer() {
-  const [login, setLogin] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const navigation = useNavigation<LoginScreenNavigationType>();
-
-  const handleLoginChange = (value: string) => {
-    setLogin(value);
-  };
-  const handlePasswordChange = (value: string) => {
-    setPassword(value);
-  };
 
   return (
     <View style={styles.container}>
@@ -57,7 +41,12 @@ function LoginFormContainer() {
         }
         placeholder="Insira sua senha"
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('MainPage');
+        }}
+        style={styles.button}
+      >
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
       <Text>

@@ -1,28 +1,21 @@
-import { Icon } from '@expo/vector-icons/build/createIconSet';
-import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  KeyboardTypeOptions,
+  TextInputProps,
+} from 'react-native';
 import { COLORS } from '../constants/Colors';
-
-type IconsLibs =
-  | 'AntDesign'
-  | 'Entypo'
-  | 'EvilIcons'
-  | 'Feather'
-  | 'Fontisto'
-  | 'FontAwesome'
-  | 'FontAwesome5'
-  | 'Foundation'
-  | 'Ionicons'
-  | 'MaterialCommunityIcons'
-  | 'MaterialIcons'
-  | 'Octicons'
-  | 'SimpleLineIcons'
-  | 'Zocial';
 
 interface InputProps {
   cabecario: string;
   icon?: React.ReactNode;
   placeholder?: string;
   keyboardType?: KeyboardTypeOptions;
+  inputProps?: TextInputProps;
+  value: string,
+  onChangeText: (text: string) => void;
 }
 
 function LoginInput(props: InputProps) {
@@ -32,11 +25,13 @@ function LoginInput(props: InputProps) {
       <View style={styles.inputForm}>
         {props.icon}
         <TextInput
+          value={props.value}
           style={styles.input}
           placeholder={props.placeholder}
           placeholderTextColor={COLORS.gray_300}
-          onChangeText={() => {}}
+          onChangeText={props.onChangeText}
           keyboardType={props.keyboardType}
+          {...props.inputProps}
         />
       </View>
     </>

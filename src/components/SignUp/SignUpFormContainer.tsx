@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import LoginInput from '../LoginInput';
+import { useState } from 'react';
 
 type SignUpScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
@@ -20,11 +21,25 @@ type SignUpScreenNavigationType = NativeStackNavigationProp<
 >;
 
 function SignUpFormContainer() {
+  const [formState, setFormState] = useState({
+    nome: '',
+    email: '',
+    address: '',
+    phone: '',
+    password: '',
+    password2: '',
+  });
   const navigation = useNavigation<SignUpScreenNavigationType>();
+
+  const handleTextChange = (form: keyof typeof formState, value: string) => {
+    setFormState({ ...formState, [form]: value });
+  };
 
   return (
     <View style={styles.container}>
       <LoginInput
+        value={formState.nome}
+        onChangeText={(text: string) => handleTextChange('nome', text)}
         cabecario="Nome completo"
         icon={
           <AntDesign
@@ -37,6 +52,8 @@ function SignUpFormContainer() {
         placeholder="Ex: Fulano Silva Torres"
       />
       <LoginInput
+        value={formState.email}
+        onChangeText={(text: string) => handleTextChange('email', text)}
         cabecario="E-mail"
         icon={
           <MaterialCommunityIcons
@@ -50,6 +67,8 @@ function SignUpFormContainer() {
         keyboardType="email-address"
       />
       <LoginInput
+        value={formState.address}
+        onChangeText={(text: string) => handleTextChange('address', text)}
         cabecario="Endereço"
         icon={
           <FontAwesome
@@ -62,6 +81,8 @@ function SignUpFormContainer() {
         placeholder="Ex: Rua Costa Barros, 302"
       />
       <LoginInput
+        value={formState.phone}
+        onChangeText={(text: string) => handleTextChange('phone', text)}
         cabecario="Telefone"
         icon={
           <AntDesign
@@ -73,8 +94,11 @@ function SignUpFormContainer() {
         }
         placeholder="Ex: (85) 91234-1234"
         keyboardType="phone-pad"
+        inputProps={{ maxLength: 11 }}
       />
       <LoginInput
+        value={formState.password}
+        onChangeText={(text: string) => handleTextChange('password', text)}
         cabecario="Senha"
         icon={
           <AntDesign
@@ -87,6 +111,8 @@ function SignUpFormContainer() {
         placeholder="Digite sua senha"
       />
       <LoginInput
+        value={formState.password2}
+        onChangeText={(text: string) => handleTextChange('password2', text)}
         cabecario="Confirmar senha"
         icon={
           <AntDesign
@@ -98,7 +124,12 @@ function SignUpFormContainer() {
         }
         placeholder="Confirme sua senha"
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        onPress={() => {
+          console.log(formState);
+        }}
+        style={styles.button}
+      >
         <Text style={styles.buttonText}>Criar conta</Text>
       </TouchableOpacity>
       <Text>
