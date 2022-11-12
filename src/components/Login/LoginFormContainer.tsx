@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import LoginInput from '../LoginInput';
+import { useState } from 'react';
 
 type LoginScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
@@ -12,41 +13,44 @@ type LoginScreenNavigationType = NativeStackNavigationProp<
 >;
 
 function LoginFormContainer() {
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const navigation = useNavigation<LoginScreenNavigationType>();
+
+  const handleLoginChange = (value: string) => {
+    setLogin(value);
+  };
+  const handlePasswordChange = (value: string) => {
+    setPassword(value);
+  };
+
+  const handleSubmit = () => {
+    navigation.navigate('Main');
+  };
 
   return (
     <View style={styles.container}>
       <LoginInput
         cabecario="Usuário ou e-mail"
-        icon={
-          <AntDesign
-            name="user"
-            size={27}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
-          />
-        }
-        placeholder="Usuário ou e-mail"
-        keyboardType="email-address"
+        icon={<AntDesign name="user" size={20} color={COLORS.gray_300} />}
+        value={login}
+        inputOptions={{
+          placeholder: 'Usuário ou e-mail',
+          keyboardType: 'email-address',
+          onChangeText: handleLoginChange,
+        }}
       />
       <LoginInput
         cabecario="Senha"
-        icon={
-          <AntDesign
-            name="lock"
-            size={27}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
-          />
-        }
-        placeholder="Insira sua senha"
-      />
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate('MainPage');
+        icon={<AntDesign name="lock" size={20} color={COLORS.gray_300} />}
+        value={password}
+        inputOptions={{
+          placeholder: 'Insira sua senha',
+          secureTextEntry: true,
+          onChangeText: handlePasswordChange,
         }}
-        style={styles.button}
-      >
+      />
+      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
       <Text>
@@ -71,12 +75,6 @@ const styles = StyleSheet.create({
     width: '80%',
     marginVertical: 50,
     padding: 20,
-  },
-  inputStartIcon: {
-    borderColor: 'black',
-    borderBottomWidth: 1,
-    paddingVertical: 5,
-    paddingRight: 3,
   },
   button: {
     backgroundColor: COLORS.orange,

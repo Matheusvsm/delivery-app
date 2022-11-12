@@ -1,13 +1,26 @@
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import {
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import SignUpFormContainer from '../components/SignUp/SignUpFormContainer';
 import SignUpWelcome from '../components/SignUp/SignUpWelcome';
 import { COLORS } from '../constants/Colors';
 
+const viewWidth = Dimensions.get('window').width;
+
 function SignUpScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <SignUpWelcome />
-      <SignUpFormContainer />
+      <ScrollView
+        style={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <SignUpWelcome />
+        <SignUpFormContainer />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -18,6 +31,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.blue_default,
+  },
+  scrollContainer: {
+    flex: 1,
+    width: viewWidth,
   },
 });
 

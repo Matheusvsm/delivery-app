@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -14,6 +13,11 @@ import { RootStackParamList } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import LoginInput from '../LoginInput';
 import { useState } from 'react';
+import {
+  emailValidator,
+  phoneMask,
+  phoneValidator,
+} from '../../utils/Validators';
 
 type SignUpScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
@@ -30,103 +34,141 @@ function SignUpFormContainer() {
     password2: '',
   });
   const navigation = useNavigation<SignUpScreenNavigationType>();
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    address: '',
+    phone: '',
+    password: '',
+    password2: '',
+  });
 
-  const handleTextChange = (form: keyof typeof formState, value: string) => {
-    setFormState({ ...formState, [form]: value });
+  const handleFormChange = (
+    newValue: string,
+    form: keyof typeof formValues,
+    mask?: (value: string) => string
+  ) => {
+    setFormValues({
+      ...formValues,
+      [form]: mask ? mask(newValue) : newValue,
+    });
   };
 
   return (
     <View style={styles.container}>
       <LoginInput
         value={formState.nome}
-        onChangeText={(text: string) => handleTextChange('nome', text)}
         cabecario="Nome completo"
         icon={
           <AntDesign
             name="user"
-            size={27}
+            size={18}
             color={COLORS.gray_300}
             style={styles.inputStartIcon}
           />
         }
-        placeholder="Ex: Fulano Silva Torres"
+        inputOptions={{
+          placeholder: 'Digite seu nome completo',
+          onChangeText: (newValue: string) =>
+            handleFormChange(newValue, 'name'),
+          maxLength: 150,
+        }}
       />
       <LoginInput
         value={formState.email}
-        onChangeText={(text: string) => handleTextChange('email', text)}
         cabecario="E-mail"
         icon={
           <MaterialCommunityIcons
             name="email-newsletter"
-            size={27}
+            size={18}
             color={COLORS.gray_300}
             style={styles.inputStartIcon}
           />
         }
-        placeholder="Ex: Fulano Silva Torres"
-        keyboardType="email-address"
+        inputOptions={{
+          placeholder: 'Ex: fulano@empresa.com',
+          keyboardType: 'email-address',
+          onChangeText: (newValue: string) =>
+            handleFormChange(newValue, 'email'),
+        }}
+        validator={emailValidator}
       />
       <LoginInput
         value={formState.address}
-        onChangeText={(text: string) => handleTextChange('address', text)}
         cabecario="Endereço"
         icon={
           <FontAwesome
             name="map-marker"
-            size={27}
+            size={18}
             color={COLORS.gray_300}
             style={{ ...styles.inputStartIcon, paddingRight: 10 }}
           />
         }
-        placeholder="Ex: Rua Costa Barros, 302"
+        inputOptions={{
+          placeholder: 'Ex: Rua Costa Barros, 302',
+          onChangeText: (newValue: string) =>
+            handleFormChange(newValue, 'address'),
+        }}
       />
       <LoginInput
         value={formState.phone}
-        onChangeText={(text: string) => handleTextChange('phone', text)}
         cabecario="Telefone"
         icon={
           <AntDesign
             name="phone"
-            size={27}
+            size={18}
             color={COLORS.gray_300}
             style={styles.inputStartIcon}
           />
         }
-        placeholder="Ex: (85) 91234-1234"
-        keyboardType="phone-pad"
-        inputProps={{ maxLength: 11 }}
+        inputOptions={{
+          placeholder: 'Ex: (85) 91234-1234',
+          keyboardType: 'phone-pad',
+          onChangeText: (newValue: string) =>
+            handleFormChange(newValue, 'phone', phoneMask),
+        }}
+        validator={phoneValidator}
       />
       <LoginInput
         value={formState.password}
-        onChangeText={(text: string) => handleTextChange('password', text)}
         cabecario="Senha"
         icon={
           <AntDesign
             name="lock"
-            size={27}
+            size={18}
             color={COLORS.gray_300}
             style={styles.inputStartIcon}
           />
         }
-        placeholder="Digite sua senha"
+        inputOptions={{
+          placeholder: 'Digite sua senha',
+          onChangeText: (newValue: string) =>
+            handleFormChange(newValue, 'password'),
+          secureTextEntry: true,
+        }}
       />
       <LoginInput
         value={formState.password2}
-        onChangeText={(text: string) => handleTextChange('password2', text)}
         cabecario="Confirmar senha"
         icon={
           <AntDesign
-            name="phone"
-            size={27}
+            name="lock"
+            size={18}
             color={COLORS.gray_300}
             style={styles.inputStartIcon}
           />
         }
-        placeholder="Confirme sua senha"
+        inputOptions={{
+          placeholder: 'Confirme sua senha',
+          onChangeText: (newValue: string) =>
+            handleFormChange(newValue, 'password2'),
+          secureTextEntry: true,
+        }}
+        validator={(text: string) => text === formValues.password}
       />
       <TouchableOpacity
         onPress={() => {
-          console.log(formState);
+          console.log(formValues);
         }}
         style={styles.button}
       >
@@ -152,14 +194,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     width: '80%',
-    marginTop: 20,
+    marginVertical: 30,
+    alignSelf: 'center',
     padding: 20,
   },
   inputStartIcon: {
     borderColor: 'black',
     borderBottomWidth: 1,
-    paddingVertical: 5,
-    paddingRight: 3,
   },
   button: {
     backgroundColor: COLORS.orange,

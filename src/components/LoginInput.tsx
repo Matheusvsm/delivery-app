@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react';
 import {
   View,
   Text,
   TextInput,
   StyleSheet,
-  KeyboardTypeOptions,
   TextInputProps,
 } from 'react-native';
 import { COLORS } from '../constants/Colors';
@@ -11,27 +11,42 @@ import { COLORS } from '../constants/Colors';
 interface InputProps {
   cabecario: string;
   icon?: React.ReactNode;
-  placeholder?: string;
-  keyboardType?: KeyboardTypeOptions;
-  inputProps?: TextInputProps;
-  value: string,
-  onChangeText: (text: string) => void;
+  value: string;
+  inputOptions: TextInputProps;
+  validator?: (text: string) => boolean;
 }
 
-function LoginInput(props: InputProps) {
+function LoginInput({
+  cabecario,
+  icon,
+  value,
+  inputOptions,
+  validator = (text: string) => true,
+}: InputProps) {
+  const [inputColor, setInputColor] = useState<'black' | 'red' | 'green'>(
+    'black'
+  );
+  useEffect(() => {
+    if (value) {
+      if (validator(value)) setInputColor('green');
+      else {
+        setInputColor('red');
+      }
+    } else {
+      setInputColor('black');
+    }
+  }, [value]);
+
   return (
     <>
-      <Text style={styles.cabecario}>{props.cabecario}</Text>
-      <View style={styles.inputForm}>
-        {props.icon}
+      <Text style={styles.cabecario}>{cabecario}</Text>
+      <View style={{ ...styles.inputForm, borderColor: inputColor }}>
+        <View style={styles.icon}>{icon}</View>
         <TextInput
-          value={props.value}
           style={styles.input}
-          placeholder={props.placeholder}
           placeholderTextColor={COLORS.gray_300}
-          onChangeText={props.onChangeText}
-          keyboardType={props.keyboardType}
-          {...props.inputProps}
+          value={value}
+          {...inputOptions}
         />
       </View>
     </>
@@ -39,24 +54,23 @@ function LoginInput(props: InputProps) {
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 3,
+  },
   inputForm: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  inputStartIcon: {
-    borderColor: 'black',
     borderBottomWidth: 1,
-    paddingVertical: 5,
-    paddingRight: 3,
   },
   input: {
     flex: 1,
     paddingVertical: 5,
-    color: '#424242',
-    borderColor: 'black',
-    borderBottomWidth: 1,
+    height: 30,
+    color: COLORS.gray_200,
   },
   cabecario: {
     color: COLORS.gray_300,
