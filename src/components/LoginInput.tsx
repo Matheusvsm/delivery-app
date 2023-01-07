@@ -1,81 +1,36 @@
-import { useEffect, useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TextInputProps,
-} from 'react-native';
-import { COLORS } from '../constants/Colors';
+  Input as NativeBaseInput,
+  IInputProps,
+  FormControl,
+} from 'native-base';
 
-interface InputProps {
-  cabecario: string;
-  icon?: React.ReactNode;
-  value: string;
-  inputOptions: TextInputProps;
-  validator?: (text: string) => boolean;
-}
+type InputProps = IInputProps & {
+  title?: string;
+  errorMessage?: string | null;
+};
 
-function LoginInput({
-  cabecario,
-  icon,
-  value,
-  inputOptions,
-  validator = (text: string) => true,
-}: InputProps) {
-  const [inputColor, setInputColor] = useState<'black' | 'red' | 'green'>(
-    'black'
-  );
-  useEffect(() => {
-    if (value) {
-      if (validator(value)) setInputColor('green');
-      else {
-        setInputColor('red');
-      }
-    } else {
-      setInputColor('black');
-    }
-  }, [value]);
+function LoginInput({ title, errorMessage = null, isInvalid, ...rest }: InputProps) {
+  const invalid = !!errorMessage || isInvalid;
 
   return (
-    <>
-      <Text style={styles.cabecario}>{cabecario}</Text>
-      <View style={{ ...styles.inputForm, borderColor: inputColor }}>
-        <View style={styles.icon}>{icon}</View>
-        <TextInput
-          style={styles.input}
-          placeholderTextColor={COLORS.gray_300}
-          value={value}
-          {...inputOptions}
-        />
-      </View>
-    </>
+    <FormControl mb={6} isInvalid={invalid}>
+      {title && <FormControl.Label>
+        {title}
+      </FormControl.Label>}
+      <NativeBaseInput
+        fontSize="md"
+        h={10}
+        variant="underlined"
+        _invalid={{
+          borderBottomColor: 'red.500'
+        }}
+        {...rest}
+      />
+      <FormControl.ErrorMessage>
+        {errorMessage}
+      </FormControl.ErrorMessage>
+    </FormControl>
   );
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 3,
-  },
-  inputForm: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-    borderBottomWidth: 1,
-  },
-  input: {
-    flex: 1,
-    paddingVertical: 5,
-    height: 30,
-    color: COLORS.gray_200,
-  },
-  cabecario: {
-    color: COLORS.gray_300,
-    fontSize: 16,
-  },
-});
 
 export default LoginInput;

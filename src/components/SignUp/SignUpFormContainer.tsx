@@ -1,9 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -12,165 +7,167 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import LoginInput from '../LoginInput';
-import { useState } from 'react';
-import {
-  emailValidator,
-  phoneMask,
-  phoneValidator,
-} from '../../utils/Validators';
+import { Icon } from 'native-base';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 type SignUpScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
   'SignUp'
 >;
 
+type SignUpDataProps = {
+  name: string;
+  email: string;
+  address: string;
+  phone: string;
+  password: string;
+  password_confirm: string;
+};
+
+const signUpSchema = yup.object({
+  name: yup.string().required('Informe o nome completo'),
+  email: yup.string().required('Informe o e-mail').email('E-mail inválido'),
+  address: yup.string().required('Informe o seu endereço'),
+  phone: yup.number().required('Informe o seu telefone'),
+  password: yup
+    .string()
+    .required('Informe uma senha')
+    .min(6, 'A senha deve ter pelo menos 6 caractéres'),
+  password_confirm: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'As senhas não são iguais'),
+});
+
 function SignUpFormContainer() {
-  const [formState, setFormState] = useState({
-    nome: '',
-    email: '',
-    address: '',
-    phone: '',
-    password: '',
-    password2: '',
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpDataProps>({
+    resolver: yupResolver(signUpSchema),
   });
   const navigation = useNavigation<SignUpScreenNavigationType>();
-  const [formValues, setFormValues] = useState({
-    name: '',
-    email: '',
-    address: '',
-    phone: '',
-    password: '',
-    password2: '',
-  });
 
-  const handleFormChange = (
-    newValue: string,
-    form: keyof typeof formValues,
-    mask?: (value: string) => string
-  ) => {
-    setFormValues({
-      ...formValues,
-      [form]: mask ? mask(newValue) : newValue,
-    });
-  };
+  function handleSignUp(data: SignUpDataProps) {
+    console.log(data);
+    Alert.alert('Conta criada com sucesso', 'Faça o login para prosseguir', [
+      {
+        text: 'Ok',
+        onPress: () => navigation.navigate('Login'),
+      },
+    ]);
+  }
 
   return (
     <View style={styles.container}>
-      <LoginInput
-        value={formState.nome}
-        cabecario="Nome completo"
-        icon={
-          <AntDesign
-            name="user"
-            size={18}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
+      <Controller
+        control={control}
+        name="name"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="Nome completo"
+            placeholder="Ex: Fulano da Silva"
+            InputLeftElement={
+              <Icon as={<AntDesign name="user" />} size={5} mr={2} />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.name?.message}
           />
-        }
-        inputOptions={{
-          placeholder: 'Digite seu nome completo',
-          onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'name'),
-          maxLength: 150,
-        }}
+        )}
       />
-      <LoginInput
-        value={formState.email}
-        cabecario="E-mail"
-        icon={
-          <MaterialCommunityIcons
-            name="email-newsletter"
-            size={18}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
+
+      <Controller
+        control={control}
+        name="email"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="E-mail"
+            placeholder="Ex: fulano@email.com"
+            InputLeftElement={
+              <Icon
+                as={<MaterialCommunityIcons name="email-newsletter" />}
+                size={5}
+                mr={2}
+              />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.email?.message}
           />
-        }
-        inputOptions={{
-          placeholder: 'Ex: fulano@empresa.com',
-          keyboardType: 'email-address',
-          onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'email'),
-        }}
-        validator={emailValidator}
+        )}
       />
-      <LoginInput
-        value={formState.address}
-        cabecario="Endereço"
-        icon={
-          <FontAwesome
-            name="map-marker"
-            size={18}
-            color={COLORS.gray_300}
-            style={{ ...styles.inputStartIcon, paddingRight: 10 }}
+
+      <Controller
+        control={control}
+        name="address"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="Endereço"
+            placeholder="Ex: Rua Paula Ney, 940"
+            InputLeftElement={
+              <Icon as={<FontAwesome name="map-marker" />} size={5} mr={2} />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.address?.message}
+            keyboardType="email-address"
           />
-        }
-        inputOptions={{
-          placeholder: 'Ex: Rua Costa Barros, 302',
-          onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'address'),
-        }}
+        )}
       />
-      <LoginInput
-        value={formState.phone}
-        cabecario="Telefone"
-        icon={
-          <AntDesign
-            name="phone"
-            size={18}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
+
+      <Controller
+        control={control}
+        name="phone"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="Telefone"
+            placeholder="Ex: 85912345678"
+            InputLeftElement={
+              <Icon as={<AntDesign name="phone" />} size={5} mr={2} />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.phone?.message}
+            keyboardType="phone-pad"
           />
-        }
-        inputOptions={{
-          placeholder: 'Ex: (85) 91234-1234',
-          keyboardType: 'phone-pad',
-          onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'phone', phoneMask),
-        }}
-        validator={phoneValidator}
+        )}
       />
-      <LoginInput
-        value={formState.password}
-        cabecario="Senha"
-        icon={
-          <AntDesign
-            name="lock"
-            size={18}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
+
+      <Controller
+        control={control}
+        name="password"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="Senha"
+            placeholder="Crie uma senha"
+            InputLeftElement={
+              <Icon as={<AntDesign name="lock" />} size={5} mr={2} />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.password?.message}
+            secureTextEntry
           />
-        }
-        inputOptions={{
-          placeholder: 'Digite sua senha',
-          onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'password'),
-          secureTextEntry: true,
-        }}
+        )}
       />
-      <LoginInput
-        value={formState.password2}
-        cabecario="Confirmar senha"
-        icon={
-          <AntDesign
-            name="lock"
-            size={18}
-            color={COLORS.gray_300}
-            style={styles.inputStartIcon}
+      <Controller
+        control={control}
+        name="password_confirm"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="Confirmar senha"
+            placeholder="Confirme a senha"
+            InputLeftElement={
+              <Icon as={<AntDesign name="lock" />} size={5} mr={2} />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.password_confirm?.message}
+            secureTextEntry
           />
-        }
-        inputOptions={{
-          placeholder: 'Confirme sua senha',
-          onChangeText: (newValue: string) =>
-            handleFormChange(newValue, 'password2'),
-          secureTextEntry: true,
-        }}
-        validator={(text: string) => text === formValues.password}
+        )}
       />
+
       <TouchableOpacity
-        onPress={() => {
-          console.log(formValues);
-        }}
         style={styles.button}
+        onPress={handleSubmit(handleSignUp)}
       >
         <Text style={styles.buttonText}>Criar conta</Text>
       </TouchableOpacity>
