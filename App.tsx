@@ -29,7 +29,7 @@ export default function App() {
             <RootStack.Screen name="Login" component={LoginScreen} />
             <RootStack.Screen name="SignUp" component={SignUpScreen} />
           </RootStack.Group>
-          <RootStack.Group>
+          <RootStack.Group screenOptions={{ headerShown: false }}>
             <RootStack.Screen name="Main" component={MainScreen} />
           </RootStack.Group>
         </RootStack.Navigator>

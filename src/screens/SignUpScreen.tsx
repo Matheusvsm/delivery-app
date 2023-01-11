@@ -1,10 +1,9 @@
 import {
   Dimensions,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
 } from 'react-native';
+import Screen from '../components/Screen';
 import SignUpFormContainer from '../components/SignUp/SignUpFormContainer';
 import SignUpWelcome from '../components/SignUp/SignUpWelcome';
 import { COLORS } from '../constants/Colors';
@@ -13,7 +12,7 @@ const viewWidth = Dimensions.get('window').width;
 
 function SignUpScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <Screen style={styles.container}>
       <ScrollView
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
@@ -21,13 +20,12 @@ function SignUpScreen() {
         <SignUpWelcome />
         <SignUpFormContainer />
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.blue_default,
