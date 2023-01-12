@@ -1,7 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { COLORS } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App';
@@ -21,6 +19,7 @@ type SignUpDataProps = {
   name: string;
   email: string;
   address: string;
+  address_complement: string;
   phone: string;
   password: string;
   password_confirm: string;
@@ -30,6 +29,7 @@ const signUpSchema = yup.object({
   name: yup.string().required('Informe o nome completo'),
   email: yup.string().required('Informe o e-mail').email('E-mail inválido'),
   address: yup.string().required('Informe o seu endereço'),
+  address_complement: yup.string(),
   phone: yup.number().required('Informe o seu telefone'),
   password: yup
     .string()
@@ -87,13 +87,14 @@ function SignUpFormContainer() {
             placeholder="Ex: fulano@email.com"
             InputLeftElement={
               <Icon
-                as={<MaterialCommunityIcons name="email-newsletter" />}
+                as={<MaterialCommunityIcons name="email-outline" />}
                 size={5}
                 mr={2}
               />
             }
             onChangeText={onChange}
             errorMessage={errors.email?.message}
+            keyboardType="email-address"
           />
         )}
       />
@@ -106,11 +107,26 @@ function SignUpFormContainer() {
             title="Endereço"
             placeholder="Ex: Rua Paula Ney, 940"
             InputLeftElement={
-              <Icon as={<FontAwesome name="map-marker" />} size={5} mr={2} />
+              <Icon as={<Feather name="map-pin" />} size={5} mr={2} />
             }
             onChangeText={onChange}
             errorMessage={errors.address?.message}
-            keyboardType="email-address"
+          />
+        )}
+      />
+
+      <Controller
+        control={control}
+        name="address_complement"
+        render={({ field: { onChange } }) => (
+          <LoginInput
+            title="Complemento"
+            placeholder="Ex: Apt 101, Bloco A"
+            InputLeftElement={
+              <Icon as={<Feather name="map-pin" />} size={5} mr={2} />
+            }
+            onChangeText={onChange}
+            errorMessage={errors.address_complement?.message}
           />
         )}
       />

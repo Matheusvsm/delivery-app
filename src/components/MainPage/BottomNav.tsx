@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'native-base';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { Entypo, AntDesign } from '@expo/vector-icons';
 import OrderScreen from '../../screens/Main/OrderScreen';
 import ProductsScreen from '../../screens/Main/ProductsScreen';
 
 type BottomTabParamList = {
   Produtos: undefined;
-  Pedidos: undefined;
+  Carrinho: undefined;
+  Perfil: undefined;
 };
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
@@ -18,6 +19,15 @@ function BottomNav() {
         name="Produtos"
         options={{
           tabBarIcon: ({ color, size }) => (
+            <Icon as={Entypo} name="shop" color={color} size={size} />
+          ),
+        }}
+        component={ProductsScreen}
+      />
+      <Tab.Screen
+        name="Carrinho"
+        options={{
+          tabBarIcon: ({ color, size }) => (
             <Icon
               as={AntDesign}
               name="shoppingcart"
@@ -26,13 +36,18 @@ function BottomNav() {
             />
           ),
         }}
-        component={ProductsScreen}
+        component={OrderScreen}
       />
       <Tab.Screen
-        name="Pedidos"
+        name="Perfil"
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon as={Ionicons} name="wallet-outline" color={color} size={size} />
+            <Icon
+              as={AntDesign}
+              name="user"
+              color={color}
+              size={size}
+            />
           ),
         }}
         component={OrderScreen}

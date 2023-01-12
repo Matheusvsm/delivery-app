@@ -3,7 +3,7 @@ import { ProductType } from '../../types/product';
 
 function Product({ id, icon, name, price }: ProductType) {
   return (
-    <HStack bgColor="white" borderRadius={10} my={2}>
+    <HStack bgColor="white" borderRadius={10} mb={2}>
       <Image
         resizeMode="contain"
         source={{ uri: icon }}

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { COLORS } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { Icon } from 'native-base';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useAuthentication } from '../../contexts/AuthContext';
 
 type LoginScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
@@ -16,13 +17,16 @@ type LoginScreenNavigationType = NativeStackNavigationProp<
 >;
 
 type LoginDataProps = {
-  user: string;
+  email: string;
   password: string;
 };
 
 const loginSchema = yup.object({
-  user: yup.string().required('Informe o usuário'),
-  password: yup.string().required('Informe a senha').min(6, 'A senha deve conter pelo menos 6 caractéres')
+  email: yup.string().required('Digite seu e-mail').email('E-mail inválido'),
+  password: yup
+    .string()
+    .required('Informe a senha')
+    .min(6, 'A senha deve conter pelo menos 6 caractéres'),
 });
 
 function LoginFormContainer() {
@@ -35,26 +39,35 @@ function LoginFormContainer() {
   });
 
   const navigation = useNavigation<LoginScreenNavigationType>();
+  const { LoginUser } = useAuthentication();
 
   function handleLogin(data: LoginDataProps) {
-    console.log(data);
-    navigation.navigate('Main');
+    if (LoginUser(data.email, data.password)) {
+      navigation.navigate('Main');
+    } else {
+      Alert.alert('Usuário não encontrado', 'Verifique os dados', [
+        {
+          text: 'Ok',
+        },
+      ]);
+    }
   }
 
   return (
     <View style={styles.container}>
       <Controller
         control={control}
-        name="user"
+        name="email"
         render={({ field: { onChange } }) => (
           <LoginInput
-            title="Usuário"
+            title="E-mail"
             InputLeftElement={
               <Icon as={<AntDesign name="user" />} size={5} mr={2} />
             }
-            placeholder="Digite o usuário"
+            placeholder="Digite o seu e-mail"
             onChangeText={onChange}
-            errorMessage={errors.user?.message}
+            errorMessage={errors.email?.message}
+            keyboardType="email-address"
           />
         )}
       />

@@ -1,0 +1,19 @@
+{
+    "admins": [
+        {
+            "name": "Gabriel Freitas de Oliveira",
+            "email": "biel.dan@hotmail.com",
+            "address": "Rua Marechal Rondon, 399",
+            "phone": "85989088651",
+            "password": "123456"
+        },
+        {
+            "name": "Daniel Freitas de Oliveira",
+            "email": "daniel.fo@hotmail.com",
+            "address": "Rua Vincente Pinzon, 1400",
+            "address_complement": "Apt 402, Bloco C",
+            "phone": "85989081063",
+            "password": "123321"
+        }
+    ]
+}

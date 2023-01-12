@@ -3,8 +3,11 @@ import { AntDesign } from '@expo/vector-icons';
 import BottomNav from '../components/MainPage/BottomNav';
 import Screen from '../components/Screen';
 import { PersonImg } from '../assets/Images';
+import { useAuthentication } from '../contexts/AuthContext';
 
 function MainPage() {
+  const { user } = useAuthentication();
+
   return (
     <Screen>
       <VStack p={6} space={6}>
@@ -17,10 +20,10 @@ function MainPage() {
             space={1}
           >
             <Icon as={AntDesign} name="enviromento" color="white" />
-            <Text color="white">Rua Marechal Rondon, 399</Text>
+            <Text color="white">{user.address}</Text>
           </HStack>
 
-          <Avatar bg="darkBlue.400" source={PersonImg} />
+          <Avatar bg="green.500" source={{ uri: user.image }} />
         </HStack>
       </VStack>
       <BottomNav />
