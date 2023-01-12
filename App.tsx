@@ -22,9 +22,9 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <AuthContextProvider>
-      <NativeBaseProvider>
-        <NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <AuthContextProvider>
           <RootStack.Navigator>
             <RootStack.Group screenOptions={{ headerShown: false }}>
               <RootStack.Screen name="Splash" component={SplashScreen} />
@@ -35,8 +35,8 @@ export default function App() {
               <RootStack.Screen name="Main" component={MainScreen} />
             </RootStack.Group>
           </RootStack.Navigator>
-        </NavigationContainer>
-      </NativeBaseProvider>
-    </AuthContextProvider>
+        </AuthContextProvider>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
 }

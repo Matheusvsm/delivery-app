@@ -13,7 +13,7 @@ function Product({ id, icon, name, price }: ProductType) {
       />
       <VStack justifyContent="space-between" px={4} py={2}>
         <Text color="muted.400">{name}</Text>
-        <Text color="rose.500" fontWeight="bold" fontSize="lg">
+        <Text color="blue.800" fontWeight="bold" fontSize="lg">
           R$ {price.toFixed(2).replace('.', ',')}
         </Text>
       </VStack>

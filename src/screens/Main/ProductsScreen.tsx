@@ -3,11 +3,13 @@ import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../../components/Screen';
 import ProductList from '../../components/MainPage/ProductList';
 import produtos from '../../mock/produtos.json';
+import TopBar from '../../components/MainPage/TopBar';
 
 function ProductsScreen() {
   return (
     <Screen>
-      <VStack flex={1} px={6} space={6}>
+      <VStack p={6} flex={1} space={6}>
+        <TopBar />
         <Input
           w="full"
           rounded="2xl"

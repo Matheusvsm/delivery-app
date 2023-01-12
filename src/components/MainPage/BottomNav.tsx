@@ -3,6 +3,7 @@ import { Icon } from 'native-base';
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import OrderScreen from '../../screens/Main/OrderScreen';
 import ProductsScreen from '../../screens/Main/ProductsScreen';
+import UserScreen from '../../screens/Main/UserScreen';
 
 type BottomTabParamList = {
   Produtos: undefined;
@@ -14,7 +15,16 @@ const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 function BottomNav() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      initialRouteName="Produtos"
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          paddingBottom: 5,
+          paddingTop: 5,
+        },
+      }}
+    >
       <Tab.Screen
         name="Produtos"
         options={{
@@ -42,15 +52,10 @@ function BottomNav() {
         name="Perfil"
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon
-              as={AntDesign}
-              name="user"
-              color={color}
-              size={size}
-            />
+            <Icon as={AntDesign} name="user" color={color} size={size} />
           ),
         }}
-        component={OrderScreen}
+        component={UserScreen}
       />
     </Tab.Navigator>
   );

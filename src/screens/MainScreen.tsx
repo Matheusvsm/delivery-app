@@ -10,22 +10,6 @@ function MainPage() {
 
   return (
     <Screen>
-      <VStack p={6} space={6}>
-        <HStack justifyContent="space-between">
-          <HStack
-            bgColor="darkBlue.400"
-            alignItems="center"
-            p={3}
-            rounded="full"
-            space={1}
-          >
-            <Icon as={AntDesign} name="enviromento" color="white" />
-            <Text color="white">{user.address}</Text>
-          </HStack>
-
-          <Avatar bg="green.500" source={{ uri: user.image }} />
-        </HStack>
-      </VStack>
       <BottomNav />
     </Screen>
   );
