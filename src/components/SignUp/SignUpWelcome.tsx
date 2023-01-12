@@ -1,5 +1,5 @@
 import { View, Image, Text, StyleSheet } from 'react-native';
-import { LoginLogo } from '../../assets/Icons';
+import { LoginLogo } from '../../assets/Images';
 
 function SignUpWelcome() {
   return (

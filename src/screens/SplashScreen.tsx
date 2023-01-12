@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Screen from '../components/Screen';
 import { RootStackParamList } from '../../App';
-import { SplashImg } from '../assets/Icons';
+import { SplashImg } from '../assets/Images';
 import { COLORS } from '../constants/Colors';
 
 function SplashScreen() {

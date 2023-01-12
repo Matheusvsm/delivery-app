@@ -1,8 +1,8 @@
 import { Avatar, HStack, Icon, Text, VStack } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
-import { Icon as AvatarIcon } from '../assets/Icons';
 import BottomNav from '../components/MainPage/BottomNav';
 import Screen from '../components/Screen';
+import { PersonImg } from '../assets/Images';
 
 function MainPage() {
   return (
@@ -17,10 +17,10 @@ function MainPage() {
             space={1}
           >
             <Icon as={AntDesign} name="enviromento" color="white" />
-            <Text color="white">Oxford Street</Text>
+            <Text color="white">Rua Marechal Rondon, 399</Text>
           </HStack>
 
-          <Avatar bg="darkBlue.400" source={AvatarIcon} />
+          <Avatar bg="darkBlue.400" source={PersonImg} />
         </HStack>
       </VStack>
       <BottomNav />
