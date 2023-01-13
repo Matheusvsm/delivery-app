@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'native-base';
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import OrderScreen from '../../screens/Main/OrderScreen';
-import ProductsScreen from '../../screens/Main/ProductsScreen';
+import ProductsScreen from '../../screens/Main/Products/ProductsScreen';
 import UserScreen from '../../screens/Main/UserScreen';
 
 type BottomTabParamList = {
