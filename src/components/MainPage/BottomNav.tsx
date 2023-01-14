@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'native-base';
 import { Entypo, AntDesign } from '@expo/vector-icons';
-import OrderScreen from '../../screens/Main/OrderScreen';
+import CartScreen from '../../screens/Main/Cart/CartScreen';
 import ProductsScreen from '../../screens/Main/Products/ProductsScreen';
 import UserScreen from '../../screens/Main/UserScreen';
+import { useCart } from '../../contexts/CartContext';
 
 type BottomTabParamList = {
   Produtos: undefined;
@@ -14,6 +15,8 @@ type BottomTabParamList = {
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 function BottomNav() {
+  const { cart } = useCart();
+
   return (
     <Tab.Navigator
       initialRouteName="Produtos"
@@ -45,8 +48,12 @@ function BottomNav() {
               size={size}
             />
           ),
+          tabBarBadge: cart.reduce(
+            (previousValue, item) => previousValue + item.quantity,
+            0
+          ),
         }}
-        component={OrderScreen}
+        component={CartScreen}
       />
       <Tab.Screen
         name="Perfil"

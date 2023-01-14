@@ -1,7 +1,7 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { HStack, VStack, Image, Text, Pressable } from 'native-base';
-import { ProductsStackPages } from '../../screens/Main/Products/ProductsScreen';
-import { ProductType } from '../../types/product';
+import { ProductsStackPages } from '../../../screens/Main/Products/ProductsScreen';
+import { ProductType } from '../../../types/product';
 
 function Product({ id, icon, name, price }: ProductType) {
   const navigation = useNavigation<NavigationProp<ProductsStackPages>>();

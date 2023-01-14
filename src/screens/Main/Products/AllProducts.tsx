@@ -1,6 +1,6 @@
 import { VStack, Icon, Input } from 'native-base';
 import { EvilIcons } from '@expo/vector-icons';
-import ProductList from '../../../components/MainPage/ProductList';
+import ProductList from '../../../components/MainPage/Products/ProductList';
 import TopBar from '../../../components/MainPage/TopBar';
 import produtos from '../../../mock/produtos.json';
 

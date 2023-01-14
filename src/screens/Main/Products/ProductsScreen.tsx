@@ -1,7 +1,7 @@
 import { Icon, Input, VStack } from 'native-base';
 import { EvilIcons } from '@expo/vector-icons';
 import Screen from '../../../components/Screen';
-import ProductList from '../../../components/MainPage/ProductList';
+import ProductList from '../../../components/MainPage/Products/ProductList';
 import produtos from '../../../mock/produtos.json';
 import TopBar from '../../../components/MainPage/TopBar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

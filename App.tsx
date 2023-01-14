@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/native-stack';
 import { NativeBaseProvider } from 'native-base';
 import { AuthContextProvider } from './src/contexts/AuthContext';
+import { CartContextProvider } from './src/contexts/CartContext';
 
 import LoginScreen from './src/screens/LoginScreen';
 import MainScreen from './src/screens/MainScreen';
@@ -25,16 +26,18 @@ export default function App() {
     <NativeBaseProvider>
       <NavigationContainer>
         <AuthContextProvider>
-          <RootStack.Navigator>
-            <RootStack.Group screenOptions={{ headerShown: false }}>
-              <RootStack.Screen name="Splash" component={SplashScreen} />
-              <RootStack.Screen name="Login" component={LoginScreen} />
-              <RootStack.Screen name="SignUp" component={SignUpScreen} />
-            </RootStack.Group>
-            <RootStack.Group screenOptions={{ headerShown: false }}>
-              <RootStack.Screen name="Main" component={MainScreen} />
-            </RootStack.Group>
-          </RootStack.Navigator>
+          <CartContextProvider>
+            <RootStack.Navigator>
+              <RootStack.Group screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="Splash" component={SplashScreen} />
+                <RootStack.Screen name="Login" component={LoginScreen} />
+                <RootStack.Screen name="SignUp" component={SignUpScreen} />
+              </RootStack.Group>
+              <RootStack.Group screenOptions={{ headerShown: false }}>
+                <RootStack.Screen name="Main" component={MainScreen} />
+              </RootStack.Group>
+            </RootStack.Navigator>
+          </CartContextProvider>
         </AuthContextProvider>
       </NavigationContainer>
     </NativeBaseProvider>

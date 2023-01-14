@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FlatList, ListRenderItemInfo, TouchableOpacity } from 'react-native';
-import { ProductType } from '../../types/product';
+import { ProductType } from '../../../types/product';
 import Product from './Product';
 import { Heading, HStack, Text } from 'native-base';
 
