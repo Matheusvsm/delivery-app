@@ -1,5 +1,5 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { HStack, VStack, Image, Text, Pressable } from 'native-base';
+import { HStack, VStack, Image, Text, Pressable, Center } from 'native-base';
 import { ProductsStackPages } from '../../../screens/Main/Products/ProductsScreen';
 import { ProductType } from '../../../types/product';
 
@@ -26,13 +26,14 @@ function Product({ id, icon, name, price }: ProductType) {
       p={2}
     >
       <HStack>
-        <Image
-          resizeMode="contain"
-          source={{ uri: icon }}
-          alt={name + ' image'}
-          borderRadius={10}
-          size="lg"
-        />
+        <Center overflow="hidden" bgColor="white" borderRadius={10}>
+          <Image
+            resizeMode="contain"
+            source={{ uri: icon }}
+            alt={name}
+            size="lg"
+          />
+        </Center>
         <VStack justifyContent="space-between" px={4} py={2}>
           <Text color="muted.400">{name}</Text>
           <Text color="blue.800" fontWeight="bold" fontSize="lg">

@@ -9,6 +9,7 @@ import { Icon } from 'native-base';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { phoneMask } from '../../utils/utils';
 
 type SignUpScreenNavigationType = NativeStackNavigationProp<
   RootStackParamList,
@@ -30,7 +31,10 @@ const signUpSchema = yup.object({
   email: yup.string().required('Informe o e-mail').email('E-mail inválido'),
   address: yup.string().required('Informe o seu endereço'),
   address_complement: yup.string(),
-  phone: yup.number().required('Informe o seu telefone'),
+  phone: yup
+    .string()
+    .required('Informe o seu telefone com DDD')
+    .min(13, 'O telefone está incompleto'),
   password: yup
     .string()
     .required('Informe uma senha')
@@ -134,16 +138,18 @@ function SignUpFormContainer() {
       <Controller
         control={control}
         name="phone"
-        render={({ field: { onChange } }) => (
+        render={({ field: { value, onChange } }) => (
           <LoginInput
             title="Telefone"
-            placeholder="Ex: 85912345678"
+            placeholder="Digite seu número com DDD"
             InputLeftElement={
               <Icon as={<AntDesign name="phone" />} size={5} mr={2} />
             }
+            value={phoneMask(value ?? '')}
             onChangeText={onChange}
             errorMessage={errors.phone?.message}
             keyboardType="phone-pad"
+            maxLength={14}
           />
         )}
       />

@@ -4,7 +4,16 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
-import { Box, Button, Heading, HStack, Image, Text, VStack } from 'native-base';
+import {
+  Box,
+  Button,
+  Center,
+  Heading,
+  HStack,
+  Image,
+  Text,
+  VStack,
+} from 'native-base';
 import { ProductsStackPages } from './ProductsScreen';
 import produtos from '../../../mock/produtos.json';
 import Screen from '../../../components/Screen';
@@ -51,12 +60,14 @@ function SingleProduct() {
     <Screen>
       <VStack bgColor="blue.500" flex={1}>
         <HStack alignItems="center" space={4} p={8} justifyContent="center">
-          <Image
-            borderRadius={100}
-            size="lg"
-            source={{ uri: product?.icon }}
-            alt={product?.name}
-          />
+          <Center overflow="hidden" bgColor="white" borderRadius={100}>
+            <Image
+              resizeMode="contain"
+              size="lg"
+              source={{ uri: product?.icon }}
+              alt={product?.name}
+            />
+          </Center>
           <Heading color="white" fontSize="2xl" fontWeight="normal">
             {product?.name}
           </Heading>

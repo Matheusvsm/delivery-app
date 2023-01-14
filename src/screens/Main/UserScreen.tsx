@@ -1,7 +1,19 @@
-import { Avatar, HStack, VStack, Text, Icon } from 'native-base';
+import {
+  Avatar,
+  HStack,
+  VStack,
+  Text,
+  Icon,
+  Heading,
+  Box,
+  ScrollView,
+} from 'native-base';
 import Screen from '../../components/Screen';
 import { useAuthentication } from '../../contexts/AuthContext';
 import { Feather } from '@expo/vector-icons';
+import { phoneMask } from '../../utils/utils';
+import { UserType } from '../../types/user';
+import UserInfo from '../../components/MainPage/User/UserInfo';
 
 function UserScreen() {
   const { user } = useAuthentication();
@@ -31,12 +43,20 @@ function UserScreen() {
           <Icon as={<Feather name="map-pin" />} size={5} mr={2} color="white" />
           <Text color="white">{user.address}</Text>
         </HStack>
-        <VStack
-          flex={1}
+        <ScrollView
           bgColor="white"
           borderTopLeftRadius={20}
           borderTopRightRadius={20}
-        ></VStack>
+          p={10}
+          showsVerticalScrollIndicator={false}
+          flex={1}
+        >
+          <VStack space={2}>
+            {Object.entries(user).map(([key, value]) => (
+              <UserInfo infoTitle={key} infoValue={value} key={key} />
+            ))}
+          </VStack>
+        </ScrollView>
       </VStack>
     </Screen>
   );

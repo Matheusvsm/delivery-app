@@ -6,7 +6,7 @@ function TopBar() {
   const { user } = useAuthentication();
 
   return (
-    <HStack justifyContent="space-between">
+    <HStack justifyContent="space-between" alignItems="center">
       <HStack
         bgColor="darkBlue.400"
         alignItems="center"
@@ -18,7 +18,12 @@ function TopBar() {
         <Text color="white">{user.address}</Text>
       </HStack>
 
-      <Avatar bg="green.500" borderColor="white" source={{ uri: user.image }}>
+      <Avatar
+        bg="green.500"
+        source={{ uri: user.image }}
+        justifyContent="center"
+        alignItems="center"
+      >
         {user.name.charAt(0)}
       </Avatar>
     </HStack>

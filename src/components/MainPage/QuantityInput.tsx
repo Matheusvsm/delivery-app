@@ -10,26 +10,29 @@ type QuantityInputProps = {
 function QuantityInput({ quantity, addQuantity, removeQuantity }: QuantityInputProps) {
 
   return (
-    <HStack alignItems="center" space={4} my={4}>
+    <HStack alignItems="center" space={2} my={4}>
       <Button
-        w="10"
-        h="10"
+        w="8"
+        h="8"
         variant="subtle"
         onPress={removeQuantity}
         borderRadius={10}
+        borderColor="info.500"
+        borderWidth="1"
       >
-        <Icon as={AntDesign} name="minus" size={8} color="info.500" />
+        <Icon as={AntDesign} name="minus" size={6} color="info.500" />
       </Button>
-      <Text fontSize="lg">{quantity}</Text>
+      <Text fontSize="lg" fontWeight="bold">{quantity}</Text>
       <Button
-        w="10"
-        h="10"
+        w="8"
+        h="8"
         variant="subtle"
-        p={4}
         onPress={addQuantity}
         borderRadius={10}
+        borderColor="info.500"
+        borderWidth="1"
       >
-        <Icon as={AntDesign} name="plus" size={8} color="info.500" />
+        <Icon as={AntDesign} name="plus" size={6} color="info.500" />
       </Button>
     </HStack>
   );
