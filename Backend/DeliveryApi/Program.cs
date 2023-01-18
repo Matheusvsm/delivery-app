@@ -13,7 +13,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Extensions.Configuration;
 using DeliveryApi.Extensions;
 using DeliveryApi.Persistence.Context;
 using DeliveryApi.Persistence.Repositories;

@@ -35,6 +35,7 @@ namespace DeliveryApi.Persistence.Context
                     Email = "biel.dan@hotmail.com",
                     Password = "123456",
                     Address = "Rua Marechal Rondon, 399",
+                    AddressComplement = "",
                     Phone = "85989088651",
                     Image = "https://lh3.googleusercontent.com/a/AEdFTp74Twoz8_vESokJkFtZi-7WLh9DPaVa5TZDc8Mp=s96-c-rg-br100"
                 },
@@ -45,7 +46,8 @@ namespace DeliveryApi.Persistence.Context
                     Password = "123321",
                     Address = "Rua Vincente Pinzon, 1400",
                     AddressComplement = "Apt 402, Bloco C",
-                    Phone = "85989081063"
+                    Phone = "85989081063",
+                    Image = ""
                 } ,
                 new User {
                     Id = 3,
@@ -53,7 +55,9 @@ namespace DeliveryApi.Persistence.Context
                     Email = "jstefani-1@hotmail.com",
                     Password = "26241317",
                     Address = "Rua Benjamin Moura, 478",
-                    Phone = "85988722744"
+                    AddressComplement = "",
+                    Phone = "85988722744",
+                    Image = ""
                 }                   
             );
         }
