@@ -34,7 +34,7 @@ internal class Program
 
         var connection = builder.Configuration["MySQLConnection:MySQLConnectionString"];
         builder.Services.AddDbContext<AppDbContext>(options => options
-            .UseMySql(connection, new MySqlServerVersion(new Version(5, 7, 0))));
+            .UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 0))));
 
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();

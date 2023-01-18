@@ -11,9 +11,9 @@ namespace DeliveryApi.Persistence.Repositories
         {
         }
 
-        public async Task<User> FirstOrDefaultAsync(String login, String password)
+        public async Task<User> FirstOrDefaultAsync(String email, String password)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Login == login && x.Password == password);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace DeliveryApi.Controllers
                     return BadRequest(ModelState.GetErrorMessages());
 
                 var user = _mapper.Map<SaveUserResource, User>(resource);
-                var result = await _userService.FirstOrDefaultAsync(user.Login, user.Password);
+                var result = await _userService.FirstOrDefaultAsync(user.Email, user.Password);
 
                 if (result == null)
                     return BadRequest("Erro ao tentar realizar o login.");
@@ -51,7 +51,7 @@ namespace DeliveryApi.Controllers
                     result = new
                     {
                         token,
-                        user = new { user.Id, user.Login }
+                        user = new { user.Id, user.Email}
                     }
                 });
 

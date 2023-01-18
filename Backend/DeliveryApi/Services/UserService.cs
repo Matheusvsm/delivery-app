@@ -14,9 +14,9 @@ namespace DeliveryApi.Services
             _userRepository = userRepository;
         }
 
-        public async Task<User> FirstOrDefaultAsync(String login, String password)
+        public async Task<User> FirstOrDefaultAsync(String email, String password)
         {
-            return await _userRepository.FirstOrDefaultAsync(login, password);
+            return await _userRepository.FirstOrDefaultAsync(email, password);
         }
     }
 }
