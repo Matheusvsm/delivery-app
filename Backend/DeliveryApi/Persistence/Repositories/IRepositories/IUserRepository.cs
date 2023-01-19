@@ -6,5 +6,9 @@ namespace DeliveryApi.Persistence.Repositories.IRepositories
     {
         Task<User> FirstOrDefaultAsync(string email, string password);  
         Task<User> FindByEmailAsync(string email);
+        Task<IEnumerable<User>> ListAsync();
+        Task AddAsync(User user);
+        void Update(User user);
+        void Remove(User user);
     }
 }

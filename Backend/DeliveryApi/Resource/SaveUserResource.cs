@@ -22,13 +22,16 @@ namespace DeliveryApi.Resource
         public string Address { get; set; }
 
         [MaxLength(50)]
-        public string AddressComplement { get; set; } = "";
+        public string AddressComplement { get; set; }
 
         [Required]
         [MaxLength(20)]
         public string Phone { get; set; }
 
         [MaxLength(100)]
-        public string Image { get; set; } = "";
+        public string Image { get; set; }
+
+        [Required]
+        public bool IsAdmin { get; set; }
     }
 }

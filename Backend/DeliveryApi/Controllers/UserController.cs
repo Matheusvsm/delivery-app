@@ -70,5 +70,34 @@ namespace DeliveryApi.Controllers
             }
 
         }
+
+
+        [Authorize()]
+        [HttpGet()]
+        public async Task<IEnumerable<UserResource>> GetAllAsync([FromBody] UserAuth userAuth)
+        {
+            string email = userAuth.Email;
+            string password = userAuth.Password;
+
+            var userResponse = await _userService.FindByEmailAsync(email);
+            var user = userResponse.User;
+            var result = await _userService.FirstOrDefaultAsync(user.Email, user.Password);
+
+            if (result == null)
+                return null;
+
+            bool isAdmin = await _userService.IsAdminAsync(user.Email);
+            if(isAdmin)
+            {
+                var users = await _userService.ListAsync();
+                var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);
+
+                return resources;
+            }
+            else 
+            {
+                return null;
+            }
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace DeliveryApi.Models
         public string AddressComplement { get; set; } = "";
         public string Phone { get; set; }
         public string Image { get; set; } = "";
+        public bool IsAdmin { get; set; } = false;
     }
 }
