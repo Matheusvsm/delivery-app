@@ -38,11 +38,15 @@ x64/
 x86/
 build/
 bld/
-[Bb]in/
-[Oo]bj/
+**/[Bb]in/
+**/[Oo]bj/
 msbuild.log
 msbuild.err
 msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+#Caminhos especificos
+Backend/DeliveryApi/[Bb]in/
+Backend/DeliveryApi/[Oo]bj/
