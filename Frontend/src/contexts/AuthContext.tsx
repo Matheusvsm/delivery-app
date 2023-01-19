@@ -17,7 +17,7 @@ export function AuthContextProvider({
   const [user, SetUser] = useState<UserType>({} as UserType);
 
   const LoginUser = (entry_email: string, entry_password: string) => {
-    const loggedUser = users.admins.find(
+    const loggedUser = users.find(
       (user) => user.email == entry_email && user.password == entry_password
     );
 

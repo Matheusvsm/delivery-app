@@ -6,7 +6,7 @@ function TopBar() {
   const { user } = useAuthentication();
 
   return (
-    <HStack justifyContent="space-between" alignItems="center">
+    <HStack justifyContent="space-between" alignItems="center" safeArea>
       <HStack
         bgColor="darkBlue.400"
         alignItems="center"

@@ -2,6 +2,9 @@ import { CartType } from "./cart"
 import { UserType } from "./user";
 
 export type OrderType = {
-    cart: CartType;
+    id: number;
+    produtos: CartType;
     user: UserType;
+    status: string;
+    value: number;
 }

@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "produtos": [
+      {
+        "product": {
+          "id": 70,
+          "name": "Água Naturágua 20L",
+          "price": 13.0
+        },
+        "quantity": 3
+      },
+      {
+        "product": {
+          "id": 74,
+          "name": "Água Neblina 20L",
+          "price": 13.0
+        },
+        "quantity": 1
+      }
+    ],
+    "user": {
+      "id": 1,
+      "name": "Gabriel Freitas de Oliveira",
+      "email": "biel.dan@hotmail.com",
+      "address": "Rua Marechal Rondon, 399",
+      "phone": "85989088651",
+      "password": "123456",
+      "isAdmin": true
+    },
+    "status": "Pedido recebido",
+    "value": 52.0
+  }
+]

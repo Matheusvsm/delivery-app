@@ -1,4 +1,5 @@
 export type UserType = {
+    id: number;
     name: string;
     email: string;
     address: string;
@@ -6,4 +7,5 @@ export type UserType = {
     phone: string;
     password: string;
     image?: string;
+    isAdmin?: boolean;
 }
