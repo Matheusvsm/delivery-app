@@ -15,5 +15,10 @@ namespace DeliveryApi.Persistence.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
         }
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            return await _context.Users
+                    .FirstOrDefaultAsync(x => x.Email == email);
+        }
     }
 }

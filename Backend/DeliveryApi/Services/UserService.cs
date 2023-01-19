@@ -18,5 +18,20 @@ namespace DeliveryApi.Services
         {
             return await _userRepository.FirstOrDefaultAsync(email, password);
         }
+
+        public async Task<UserResponse> FindByEmailAsync(string email)
+        {
+            var existingUser = await _userRepository.FindByEmailAsync(email);
+
+            if (existingUser == null)
+            {
+                return new UserResponse("User not found.");
+            }
+            else 
+            {
+                return new UserResponse(existingUser);
+            }
+            
+        }
     }
 }

@@ -30,14 +30,20 @@ namespace DeliveryApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> VerifyLogin([FromBody] SaveUserResource resource)
+        public async Task<ActionResult> VerifyLogin([FromBody] UserAuth userAuth)
         {
             try
             {
                 if (!ModelState.IsValid)
+                {
                     return BadRequest(ModelState.GetErrorMessages());
+                }                  
+                
+                string email = userAuth.Email;
+                string password = userAuth.Password;
 
-                var user = _mapper.Map<SaveUserResource, User>(resource);
+                var userResponse = await _userService.FindByEmailAsync(email);
+                var user = userResponse.User;
                 var result = await _userService.FirstOrDefaultAsync(user.Email, user.Password);
 
                 if (result == null)
