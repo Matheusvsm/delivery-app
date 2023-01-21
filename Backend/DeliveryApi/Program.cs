@@ -26,6 +26,9 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+        builder.Services.AddSingleton(mapper);
+
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         // Add services to the container.

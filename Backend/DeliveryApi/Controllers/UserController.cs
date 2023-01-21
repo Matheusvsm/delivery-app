@@ -89,10 +89,10 @@ namespace DeliveryApi.Controllers
 
         [Authorize()]
         [HttpPut]
-        public async Task<IActionResult> PutAsync([FromBody] SaveUserResource resource)
+        public async Task<IActionResult> PutAsync([FromBody] UserAuth userAuth, [FromBody] SaveUserResource resource)
         {
-            string isAdmin = await WhoAmIAsync(new UserAuth{Email = resource.Email, Password = resource.Password});
-            if(isAdmin == "Cliente")
+            string isAdmin = await WhoAmIAsync(userAuth);
+            if(isAdmin != "Não Encontrado")
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState.GetErrorMessages());

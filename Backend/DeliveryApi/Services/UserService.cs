@@ -10,9 +10,10 @@ namespace DeliveryApi.Services
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<User> FirstOrDefaultAsync(string email, string password)
@@ -57,10 +58,10 @@ namespace DeliveryApi.Services
 
         public async Task<UserResponse> SaveAsync(User user)
         {
-            /*var existingUser = await _userRepository.FindByEmailAsync(user.Email);
+            var existingUser = await _userRepository.FindByEmailAsync(user.Email);
 
             if (existingUser != null)
-                return new UserResponse("Já existe conta com esse Email");*/
+                return new UserResponse("Já existe conta com esse Email");
             
             try
             {
