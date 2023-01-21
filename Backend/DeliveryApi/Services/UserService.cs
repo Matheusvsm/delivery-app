@@ -57,10 +57,10 @@ namespace DeliveryApi.Services
 
         public async Task<UserResponse> SaveAsync(User user)
         {
-            var existingUser = await _userRepository.FindByEmailAsync(user.Email);
+            /*var existingUser = await _userRepository.FindByEmailAsync(user.Email);
 
             if (existingUser != null)
-                return new UserResponse("Já existe conta com esse Email");
+                return new UserResponse("Já existe conta com esse Email");*/
             
             try
             {
@@ -72,7 +72,7 @@ namespace DeliveryApi.Services
             catch (Exception ex)
             {
                 // Do some logging stuff
-                return new UserResponse($"Ocorreu um erro ao tentar salvar o Usuário: {ex.Message}");
+                return new UserResponse($"Ocorreu um erro ao tentar criar o Usuário: {ex.Message}");
             }
         }
 

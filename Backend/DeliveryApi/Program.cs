@@ -36,6 +36,8 @@ internal class Program
             .UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 0))));
 
 
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
 
