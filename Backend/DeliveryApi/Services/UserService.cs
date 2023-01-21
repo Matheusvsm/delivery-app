@@ -86,8 +86,6 @@ namespace DeliveryApi.Services
                 return new UserResponse("Usuário não encontrado.");
 
             existingUser.Name = user.Name;
-            existingUser.Email = user.Email;
-            existingUser.Password = user.Password;
             existingUser.Address = user.Address;
             existingUser.AddressComplement = user.AddressComplement;
             existingUser.Phone = user.Phone;

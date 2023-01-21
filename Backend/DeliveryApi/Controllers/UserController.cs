@@ -89,9 +89,9 @@ namespace DeliveryApi.Controllers
 
         [Authorize()]
         [HttpPut]
-        public async Task<IActionResult> PutAsync([FromBody] UserAuth userAuth, [FromBody] SaveUserResource resource)
+        public async Task<IActionResult> PutAsync([FromBody] SaveUserResource resource)
         {
-            string isAdmin = await WhoAmIAsync(userAuth);
+            string isAdmin = await WhoAmIAsync(new UserAuth{Email = resource.Email, Password = resource.Password});
             if(isAdmin != "Não Encontrado")
             {
                 if (!ModelState.IsValid)
@@ -134,13 +134,12 @@ namespace DeliveryApi.Controllers
         }
 
         [Authorize()]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteAsync([FromBody] UserAuth userAuth)
+        [HttpDelete("{email}")]
+        public async Task<IActionResult> DeleteAsync(string email, [FromBody] UserAuth userAuth)
         {
             string isAdmin = await WhoAmIAsync(userAuth);
             if(isAdmin == "Admin")
             {
-                string email = userAuth.Email;
                 var result = await _userService.DeleteAsync(email);
 
                 if (!result.Success)
