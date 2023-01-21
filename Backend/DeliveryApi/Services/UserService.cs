@@ -63,6 +63,11 @@ namespace DeliveryApi.Services
             if (existingUser != null)
                 return new UserResponse("Já existe conta com esse Email");
             
+            if(user.IsAdmin)
+            {
+                user.IsAdmin = false;
+            }
+            
             try
             {
                 await _userRepository.AddAsync(user);

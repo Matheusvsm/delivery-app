@@ -85,6 +85,7 @@ namespace DeliveryApi.Controllers
 
             var userResource = _mapper.Map<User, UserResource>(result.User);
             return Ok(userResource);
+            //TESTAR CRIAÇÃO DE USUARIO ADMIN
         }
 
         [Authorize()]
