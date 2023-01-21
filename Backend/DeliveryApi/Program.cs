@@ -26,6 +26,9 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+        builder.Services.AddSingleton(mapper);
+
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         // Add services to the container.
@@ -35,6 +38,8 @@ internal class Program
         builder.Services.AddDbContext<AppDbContext>(options => options
             .UseMySql(connection, new MySqlServerVersion(new Version(8, 0, 0))));
 
+
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();

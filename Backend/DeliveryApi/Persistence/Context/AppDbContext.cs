@@ -25,6 +25,7 @@ namespace DeliveryApi.Persistence.Context
             builder.Entity<User>().Property(p => p.AddressComplement).HasMaxLength(50);
             builder.Entity<User>().Property(p => p.Phone).IsRequired().HasMaxLength(20);
             builder.Entity<User>().Property(p => p.Image).HasMaxLength(100);
+            builder.Entity<User>().Property(p => p.IsAdmin).IsRequired();
 
             //Popular Users
             builder.Entity<User>().HasData
@@ -35,9 +36,9 @@ namespace DeliveryApi.Persistence.Context
                     Email = "biel.dan@hotmail.com",
                     Password = "123456",
                     Address = "Rua Marechal Rondon, 399",
-                    AddressComplement = "",
                     Phone = "85989088651",
-                    Image = "https://lh3.googleusercontent.com/a/AEdFTp74Twoz8_vESokJkFtZi-7WLh9DPaVa5TZDc8Mp=s96-c-rg-br100"
+                    Image = "https://lh3.googleusercontent.com/a/AEdFTp74Twoz8_vESokJkFtZi-7WLh9DPaVa5TZDc8Mp=s96-c-rg-br100",
+                    IsAdmin = true
                 },
                 new User {
                     Id = 2,
@@ -46,8 +47,7 @@ namespace DeliveryApi.Persistence.Context
                     Password = "123321",
                     Address = "Rua Vincente Pinzon, 1400",
                     AddressComplement = "Apt 402, Bloco C",
-                    Phone = "85989081063",
-                    Image = ""
+                    Phone = "85989081063"
                 } ,
                 new User {
                     Id = 3,
@@ -55,9 +55,7 @@ namespace DeliveryApi.Persistence.Context
                     Email = "jstefani-1@hotmail.com",
                     Password = "26241317",
                     Address = "Rua Benjamin Moura, 478",
-                    AddressComplement = "",
-                    Phone = "85988722744",
-                    Image = ""
+                    Phone = "85988722744"
                 }                   
             );
         }
